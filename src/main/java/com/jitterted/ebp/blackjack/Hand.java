@@ -13,7 +13,7 @@ public class Hand {
     public Hand() {
     }
 
-    private int value() {
+    public int value() {
         int handValue = cards
                 .stream()
                 .mapToInt(Card::rankValue)
@@ -40,10 +40,6 @@ public class Hand {
         return value() <= 16;
     }
 
-    void display() {
-        System.out.println(ConsoleHand.cardsAsString(this));
-    }
-
     // QUERY METHOD: Snapshot In Time
     public List<Card> cards() {
         return List.copyOf(cards);
@@ -65,10 +61,8 @@ public class Hand {
         return hand.value() < value();
     }
 
-    String displayValue() {
-        return String.valueOf(value());
-    }
-
+    // Maybe need to deprecate instead of immediate removal due to usage outside of our control
+    @Deprecated
     public boolean valueEquals(int target) {
         return value() == target;
     }
