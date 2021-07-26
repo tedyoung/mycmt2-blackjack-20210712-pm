@@ -54,7 +54,8 @@ class BlackjackControllerTest {
 
     @Test
     public void hitCommandResultsInCardDealtToPlayer() throws Exception {
-        Game game = new Game();
+        Deck playerHitsAndDoesNotGoBustDeck = StubDeck.playerHitsAndDoesNotGoBust();
+        Game game = new Game(playerHitsAndDoesNotGoBustDeck);
         BlackjackController blackjackController = new BlackjackController(game);
         blackjackController.startGame();
 
@@ -65,6 +66,19 @@ class BlackjackControllerTest {
 
         assertThat(game.playerHand().cards())
                 .hasSize(3);
+    }
+
+    @Test
+    public void playerHitsAndGoesBustIsRedirectToDonePage() throws Exception {
+        Deck playerHitsAndGoesBustDeck = StubDeck.playerHitsAndGoesBustDeck();
+        Game game = new Game(playerHitsAndGoesBustDeck);
+        BlackjackController blackjackController = new BlackjackController(game);
+        blackjackController.startGame();
+
+        String redirectPage = blackjackController.hitCommand();
+
+        assertThat(redirectPage)
+                .isEqualTo("redirect:/done");
     }
 
 }
