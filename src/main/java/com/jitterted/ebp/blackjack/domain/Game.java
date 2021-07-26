@@ -62,6 +62,7 @@ public class Game {
     }
 
     public void playerHits() {
+        // check invariant: if player is busted, don't allow to hit
         playerHand.drawFrom(deck);
         playerDone = playerHand.isBusted();
     }
