@@ -77,6 +77,7 @@ public class Game {
         // check invariant: if player is busted, don't allow to hit
         playerHand.drawFrom(deck);
         playerDone = playerHand.isBusted();
+        gameMonitor.roundCompleted(this);
     }
 
     public void playerStands() {
