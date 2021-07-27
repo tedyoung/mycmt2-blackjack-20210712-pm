@@ -76,16 +76,19 @@ public class Game {
     public void playerHits() {
         // check invariant: if player is busted, don't allow to hit
         playerHand.drawFrom(deck);
-        playerDone = playerHand.isBusted();
-        if (playerDone) {
-            gameMonitor.roundCompleted(this);
-        }
+        updatePlayerDoneTo(playerHand.isBusted());
     }
 
     public void playerStands() {
-        playerDone = true;
         dealerTurn();
-        gameMonitor.roundCompleted(this);
+        updatePlayerDoneTo(true);
+    }
+
+    private void updatePlayerDoneTo(boolean isPlayerDone) {
+        playerDone = isPlayerDone;
+        if (playerDone) {
+            gameMonitor.roundCompleted(this);
+        }
     }
 
     public boolean isPlayerDone() {
